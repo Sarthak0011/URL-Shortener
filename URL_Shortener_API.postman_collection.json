@@ -1,0 +1,244 @@
+{
+    "info": {
+        "_postman_id": "c7a8b4b1-8b7a-4c1e-9a7b-3d9a1b2c3d4e",
+        "name": "URL Shortener API",
+        "description": "Collection for the URL Shortener Microservices Project",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "URL Service",
+            "item": [
+                {
+                    "name": "Create Short URL",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"longUrl\": \"https://www.google.com\",\n    \"expiryDays\": 30\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/urls",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "urls"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get All URLs",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/urls",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "urls"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get URL Details",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/urls/:shortCode",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "urls",
+                                ":shortCode"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "shortCode",
+                                    "value": "replace_with_short_code"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Original URL (Internal lookup)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/urls/:shortCode/redirect",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "urls",
+                                ":shortCode",
+                                "redirect"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "shortCode",
+                                    "value": "replace_with_short_code"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete URL",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/urls/:shortCode",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "urls",
+                                ":shortCode"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "shortCode",
+                                    "value": "replace_with_short_code"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Analytics Service",
+            "item": [
+                {
+                    "name": "Get All Analytics",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analytics",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analytics"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Click Count",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analytics/:shortCode/count",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analytics",
+                                ":shortCode",
+                                "count"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "shortCode",
+                                    "value": "replace_with_short_code"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Detailed Analytics",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/analytics/:shortCode",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "analytics",
+                                ":shortCode"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "shortCode",
+                                    "value": "replace_with_short_code"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Redirect Service",
+            "item": [
+                {
+                    "name": "Redirect to Long URL",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/:shortCode",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                ":shortCode"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "shortCode",
+                                    "value": "replace_with_short_code"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8080"
+        }
+    ]
+}

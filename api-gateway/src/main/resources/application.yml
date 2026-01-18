@@ -1,0 +1,63 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  
+  cloud:
+    gateway:
+      routes:
+        # URL Service routes (must be before redirect route due to specificity)
+        - id: url-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/urls/**
+        
+        # Analytics Service routes
+        - id: analytics-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/analytics/**
+        
+        # Redirect Service route (catch-all for short codes)
+        - id: redirect-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/{shortCode}
+            - Method=GET
+          filters:
+            - RewritePath=/(?<shortCode>.*), /${shortCode}
+      
+      # Global CORS configuration
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            exposedHeaders:
+              - Location
+            maxAge: 3600
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty: INFO
