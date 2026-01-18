@@ -4,25 +4,32 @@ server:
 spring:
   application:
     name: api-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
   
   cloud:
     gateway:
       routes:
         # URL Service routes (must be before redirect route due to specificity)
         - id: url-service
-          uri: http://localhost:8081
+          uri: lb://url-service
           predicates:
             - Path=/api/urls/**
         
         # Analytics Service routes
         - id: analytics-service
-          uri: http://localhost:8083
+          uri: lb://analytics-service
           predicates:
             - Path=/api/analytics/**
         
         # Redirect Service route (catch-all for short codes)
         - id: redirect-service
-          uri: http://localhost:8082
+          uri: lb://redirect-service
           predicates:
             - Path=/{shortCode}
             - Method=GET

@@ -8,10 +8,13 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 
 
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+
 @Configuration
 public class RestClientConfig {
     
     @Bean
+    @LoadBalanced
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder
                 .setConnectTimeout(Duration.ofSeconds(5))

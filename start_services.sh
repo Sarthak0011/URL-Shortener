@@ -1,6 +1,10 @@
 #!/bin/bash
 echo "Starting services..."
 
+nohup java -jar discovery-service/target/discovery-service-1.0.0.jar > discovery-service.log 2>&1 &
+echo "Started Discovery Service (PID: $!)"
+sleep 15 # Wait for Eureka to be ready
+
 nohup java -jar url-service/target/url-service-1.0.0.jar > url-service.log 2>&1 &
 echo "Started URL Service (PID: $!)"
 

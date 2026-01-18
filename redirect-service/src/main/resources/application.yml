@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: redirect-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
   
   # Redis configuration
   data:
@@ -26,7 +33,7 @@ spring:
 # Application settings
 app:
   url-service:
-    base-url: http://localhost:8081
+    base-url: http://url-service
   redis:
     key-prefix: "short:"
     default-ttl-hours: 24
